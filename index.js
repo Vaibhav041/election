@@ -30,7 +30,7 @@ app.post("/auth/login", async (req, res) => {
             res.status(500).json({success:false});
         }
     } else {
-      res.status(500).json("no user found");
+      res.status(500).json("no user");
     }
   } catch (err) {
     res.status(500).json({ success: false });
