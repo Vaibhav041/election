@@ -23,6 +23,9 @@ const voterSchema = new mongoose.Schema(
     boothNumber: {
       type: String,
     },
+    id: {
+        type:Number
+    }
   },
   { timestamps: true }
 );
