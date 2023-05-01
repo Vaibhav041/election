@@ -21,9 +21,14 @@ mongoose.connect(process.env.MONGO, { useNewUrlParser: true }).then(() => {
 
 app.post("/auth/login", async (req, res) => {
   try {
-    let data = await User.findOne(req.body).select("-password");
+    let data = await User.findOne({name:req.body.name});
     if (data) {
-      res.status(200).json({ data, success: true });
+        if (data.password === req.body.password) {
+            res.status(200).json({ data, success: true });
+        }
+        else {
+            res.status(500).json({success:false});
+        }
     } else {
       res.status(500).json("no user found");
     }
