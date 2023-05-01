@@ -14,17 +14,17 @@ const voterSchema = new mongoose.Schema(
     hindiFatherName: {
       type: String,
     },
-    building: {
-      type: String,
+    building:{
+        type:String,
     },
-    age: {
-      type: Number,
+    age:{
+        type:Number,
     },
     boothNumber: {
-      type: String,
+        type:String,
     },
-    id: {
-        type:Number
+    userId: {
+        type:String,
     }
   },
   { timestamps: true }
