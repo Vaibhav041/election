@@ -49,12 +49,11 @@ app.post("/voter/add", async (req, res) => {
   res.status(200).json(voter);
 });
 
-app.get("/voter/get/:name/:building/:id/:so/:booth", async (req, res) => {
+app.get("/voter/get/:name/:building/:so/:booth", async (req, res) => {
   let result = await Voter.find({
     $or: [
       { name: { $regex: req.params.name, $options: "i" } },
       { building: { $regex: req.params.building, $options: "i" } },
-      { userId: { $regex: req.params.id, $options: "i" } },
       { fatherName: { $regex: req.params.so, $options: "i" } },
       { boothNumber: { $regex: req.params.booth, $options: "i" } },
     ],
