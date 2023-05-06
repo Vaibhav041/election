@@ -24,7 +24,7 @@ app.post("/auth/login", async (req, res) => {
     let data = await User.findOne({name:req.body.name});
     if (data) {
         if (data.password === req.body.password) {
-            res.status(200).json({ data, success: true });
+            res.status(200).json({ success: true });
         }
         else {
             res.status(500).json({success:false});
@@ -93,8 +93,8 @@ app.get("/voter/get2/:name/:building/:so/:booth", async (req, res) => {
     boothNumber: req.query.booth !=='#' ? {$regex: req.query.booth, $options: 'i'} : /.*/,
     userId: /.*/
   }
-  const voters = await Voter.find(filter);
-  res.status(200).json(filter);
+  // const voters = await Voter.find(filter);
+  res.status(200).json("filter");
 })
 
 const PORT = process.env.PORT || 9000;
