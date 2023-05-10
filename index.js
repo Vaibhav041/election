@@ -72,6 +72,10 @@ app.get("/voter/get/:name/:building/:so/:booth", async (req, res) => {
     });
   }
   
+  if (arr.length === 0) {
+    res.status(200).json([]);
+  }
+
   let result = await Voter.find({
     $and: arr,
   });
@@ -103,6 +107,10 @@ app.get("/voter/gett/:name/:building/:so/:booth", async (req, res) => {
     arr.push({
       boothNumber:  { $regex: req.params.booth.slice(1), $options: "i" }
     });
+  }
+
+  if (arr.length === 0) {
+    res.status(200).json([]);
   }
 
   let result = await Voter.find({
