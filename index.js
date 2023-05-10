@@ -82,19 +82,39 @@ app.get("/voter/get/:name/:building/:so/:booth", async (req, res) => {
   }
 });
 
-app.get("/voter/get2/:name/:building/:so/:booth", async (req, res) => {
-  const filter = {
-    name: req.query.name !=='#' ? { $regex: req.query.name, $options: 'i'} : /.*/,
-    fatherName: req.query.so !=='#' ? {$regex: req.query.so, $options: 'i'} : /.*/,
-    hindiName: /.*/,
-    hindiFatherName:/.*/,
-    building: req.query.building !=='#' ? {$regex: req.query.building, $options: 'i'} : /.*/,
-    age: /.*/,
-    boothNumber: req.query.booth !=='#' ? {$regex: req.query.booth, $options: 'i'} : /.*/,
-    userId: /.*/
+app.get("/voter/gett/:name/:building/:so/:booth", async (req, res) => {
+  let arr = [];
+  if (req.params.name != 'x') {
+    arr.push({
+      name:  { $regex: req.params.name.slice(1), $options: "i" }
+    });
   }
-  // const voters = await Voter.find(filter);
-  res.status(200).json("filter");
+  if (req.params.building != 'x') {
+    arr.push({
+      building:  { $regex: req.params.building.slice(1), $options: "i" }
+    });
+  }
+  if (req.params.so != 'x') {
+    arr.push({
+      fatherName:  { $regex: req.params.so.slice(1), $options: "i" }
+    });
+  }
+  if (req.params.booth !== 'x') {
+    arr.push({
+      boothNumber:  { $regex: req.params.booth.slice(1), $options: "i" }
+    });
+  }
+
+  let result = await Voter.find({
+    $and: arr,
+  });
+  if (result) {
+    res.status(200).json(result);
+  } else {
+    res.status(500).json("no results match");
+  }
+
+  
 })
 
 const PORT = process.env.PORT || 9000;
